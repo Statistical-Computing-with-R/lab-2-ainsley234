@@ -3,8 +3,11 @@ title: "Lab 2: Exploring Rodents with `ggplot2`"
 author: "Ainsley Forster"
 format: html
 editor: source
+theme: minty
 embed-resources: true
 code-tools: true
+echo: true
+code-fold: true
 ---
 
 # Part 1: GitHub Workflow
@@ -63,6 +66,8 @@ In the code chunk below, load in the packages necessary for your analysis. You s
 ```{r}
 #| label: setup
 
+library(tidyverse)
+
 ```
 
 # Data Context
@@ -102,15 +107,34 @@ represent:
 ```{r}
 #| label: load-data
 
+surveys <- read_csv('./data/surveys.csv')
+
+spec(surveys)
+
 ```
 
 **2. What are the dimensions (# of rows and columns) of these data?**
 
-<!-- You can either write code here or in the code chunk for #1, but I **must** see the code you used to address this question!  -->
+There are 30463 rows, and 15 columns.
 
 **3. What are the data types of the variables in this dataset?**
 
-<!-- You can either write code here or in the code chunk for #1, but I **must** see the code you used to address this question!  -->
+The data types are:
+  record_id = col_double(),
+  month = col_double(),
+  day = col_double(),
+  year = col_double(),
+  plot_id = col_double(),
+  species_id = col_character(),
+  sex = col_character(),
+  hindfoot_length = col_double(),
+  weight = col_double(),
+  date = col_date(format = ""),
+  day_of_week = col_character(),
+  plot_type = col_character(),
+  genus = col_character(),
+  species = col_character(),
+  taxa = col_character()
 
 # Exploratory Data Analysis with **`ggplot2`**
 
@@ -127,6 +151,7 @@ for different types of plots:
 ggplot(data = <DATA>,
        mapping = aes(<VARIABLE MAPPINGS>)) +
   <GEOM_FUNCTION>()
+
 ```
 
 Let's get started!
@@ -138,6 +163,23 @@ the $x$-axis) and `hindfoot_length` (on the $y$-axis).**
 
 ```{r}
 #| label: scatterplot
+
+ggplot(data = surveys,
+       mapping = aes(
+         x=weight, 
+         y=hindfoot_length,
+         alpha = 0.3,  #used website to learn about alpha: https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html#:~:text=Alpha%20refers%20to%20the%20opacity,corresponding%20to%20more%20transparent%20colors.
+         color = species)  
+       )+
+  geom_point()+
+  labs(title="Scatterplot of Weight v. Hindfoot Length",
+       subtitle = "Hindfoot Length",
+       x="Weight",
+       y="",
+       color="Species",
+       alpha = "Alpha Opacity"
+       )
+
 
 ```
 
@@ -168,6 +210,20 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 
 ```{r}
 #| label: boxplot
+
+ggplot(data = surveys,
+       mapping = aes(y=weight, 
+                     x=species
+                     ) 
+       ) +
+  geom_boxplot(outliers = FALSE)+
+  geom_jitter(alpha=.2, color="pink3")+
+  labs(title="Boxplot Comparison of Weight by Species",
+       subtitle = "Species",
+       x="Weight",
+       y=""
+  )+
+  theme(axis.text.x = element_text(angle=45))
 
 
 ```
@@ -215,6 +271,19 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 
 ```{r}
 #| label: rotated-boxplot
+
+ggplot(data = surveys,
+       mapping = aes(x=weight, 
+                     y=species
+                     ) 
+       ) +
+  geom_boxplot(outliers = FALSE)+
+  geom_jitter(alpha=.2, color="pink3")+
+  labs(title="Boxplot Comparison of Weight by Species",
+       subtitle = "Weight",
+       y="",
+       x="Species"
+  )
 
 ```
 
