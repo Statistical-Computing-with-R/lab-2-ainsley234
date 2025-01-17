@@ -10,6 +10,7 @@ echo: true
 code-fold: true
 ---
 
+
 # Part 1: GitHub Workflow
 
 Now that you have the Lab 2 repository cloned, you need to make sure these files
@@ -317,13 +318,14 @@ might want to look up the help documentation for `aov()`.
 ```{r}
 #| label: anova
 
-species_mod <- aov()
+species_mod <- aov(weight ~ species, data = surveys)
 
 summary(species_mod)
 ```
 
 **18. Based on the results of the ANOVA F-test, draw a conclusion in context of the hypotheses. Make sure to cite appropriate output from above.**
 
+Based on the output above, since the p-value is very small we can reject the null at any reasonable significance level. Thus, we can conclude that there is very strong evidence to suggest that at least one rodent species has a different population mean weight than the others.
 
 # Lab 2 Submission
 
