@@ -341,7 +341,7 @@ In addition, your document should not have any warnings or messages output in yo
 
 ## Challenge 2: Exploring Color Themes
 ```{r}
-#| label: rotated-boxplot
+#| label: colored-rotated-boxplot
 
 ainsley_palet <- c("#000000", "#E3DAC9", "#318CE7", "#0B486B", "#272941",
                    "#1CCEB7", "#008080", "#1B4D3E", "#2C9C38", "#F0A830",
