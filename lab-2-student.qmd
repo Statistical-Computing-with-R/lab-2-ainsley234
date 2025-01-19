@@ -338,3 +338,28 @@ For Lab 2 you will submit **only** your HTML file. Your HTML file is required to
 **If any of the options are not included, your Lab 2 or Challenge 2 assignment will receive an "Incomplete" and you will be required to submit a revision.**
 
 In addition, your document should not have any warnings or messages output in your HTML document. **If your HTML contains warnings or messages, you will receive an "Incomplete" for document formatting and you will be required to submit a revision.**
+
+## Challenge 2: Exploring Color Themes
+```{r}
+#| label: rotated-boxplot
+
+ainsley_palet <- c("#000000", "#E3DAC9", "#318CE7", "#0B486B", "#272941",
+                   "#1CCEB7", "#008080", "#1B4D3E", "#2C9C38", "#F0A830",
+                   "#FFA4E9", "#E95081", "#7B1E7A", "#841B2D")
+  #used this website for the color pallet: https://lospec.com/palette-list/simple-14
+
+ggplot(data = surveys,
+       mapping = aes(x=weight, 
+                     y=species,
+                     fill=class
+                     ) 
+       ) +
+  geom_boxplot(aes(fill=species))+
+  scale_fill_manual(values = ainsley_palet, aesthetics = "fill")+
+  labs(title="Boxplot Comparison of Weight by Species",
+       subtitle = "Weight",
+       y="",
+       x="Species"
+  )
+
+```
